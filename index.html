@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VAMOS: A Hierarchical Vision-Language-Action Model for Capability-Modulated and Steerable Navigation</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Hero Section with Video Background -->
+    <header class="hero">
+        <!-- Background Video -->
+        <div class="hero-video-background">
+            <video autoplay muted loop> 
+                <source src="content/images/placeholder_video.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+        </div>
+        
+        <!-- Content -->
+        <div class="container hero-content">
+            <h1 class="hero-title">VAMOS</h1>
+            <h2 class="hero-subtitle">A Hierarchical Vision-Language-Action Model for<br>Capability-Modulated and Steerable Navigation</h2>
+            
+            <!-- <div class="conference-info">
+                <p class="conference"> Mateo Guaman Castro, Sidharth Rajagopal, Daniel Gorbatov, Matt Schmittle, Rohan Baijal, Octi Zhang, Rosario Scalise, Sidharth Talia, Emma Romig, Celso de Melo, Byron Boots, Abhishek Gupta</p>
+            </div> -->
+
+            <div class="action-buttons">
+                <a href="#" class="btn btn-primary">
+                    <img src="content/images/pdf-icon.png" alt="PDF icon" class="btn-icon">
+                    Paper
+                </a>
+                <a href="#" class="btn btn-primary">
+                    <img src="content/images/arxiv-icon.png" alt="ArXiv icon" class="btn-icon">
+                    arXiv
+                </a>
+                <a href="#" class="btn btn-primary">
+                    <img src="content/images/youtube-icon.png" alt="YouTube icon" class="btn-icon">
+                    Video
+                </a>
+                <a href="#" class="btn btn-primary">
+                    <img src="content/images/github-icon.png" alt="GitHub icon" class="btn-icon">
+                    Code
+                </a>
+            </div>
+
+        </div>
+        
+        <!-- Section Navigation at Bottom of Video -->
+        <div class="section-navigation-bottom">
+            <!-- Mobile Menu Toggle -->
+            <button class="mobile-menu-toggle" aria-label="Toggle navigation menu">
+                <span class="dot"></span>
+                <span class="dot"></span>
+                <span class="dot"></span>
+            </button>
+            
+            <!-- Navigation Menu -->
+            <nav class="section-nav-menu">
+                <!-- <a href="#overview" class="section-nav-btn">Overview</a> -->
+                <a href="#hierarchical" class="section-nav-btn">Hierarchical Navigation</a>
+                <a href="#cross-embodiment" class="section-nav-btn">Cross-Embodiment</a>
+                <a href="#steerability" class="section-nav-btn">Language Steerability</a>
+                <a href="#results" class="section-nav-btn">Results</a>
+                <a href="#method" class="section-nav-btn">Method</a>
+                <a href="#team" class="section-nav-btn">Team</a>
+                <a href="#citation" class="section-nav-btn">Citation</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Overview Section -->
+    <section id="overview" class="content-section overview-section">
+        <div class="container">
+            <div class="overview-content">
+                <p>VAMOS is a hierarchical vision-language-action model that decouples semantic planning from embodiment grounding, enabling robust cross-embodiment navigation with natural language steerability.</p>
+                <p>A single high-level planner can be deployed across physically distinct wheeled and legged robots by using a embodiment specific affordance model to reject physically infeasible plans.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Hierarchical Navigation Section -->
+    <section id="hierarchical" class="content-section bg-light">
+        <div class="container">
+            <h2>Hierarchical Navigation with Embodiment Grounding</h2>
+            <div class="two-column">
+                <div class="text-content">
+                    <p>A fundamental tension in robot navigation lies in learning policies that generalize across diverse environments while conforming to the unique physical constraints of specific embodiments. Quadrupeds can walk up stairs, rovers cannot.</p>
+                    <p>VAMOS resolves this tension through a carefully designed hierarchical architecture that separates concerns:</p>
+                    <ul>
+                        <li><strong>High-level VLM Planner:</strong> Learns from diverse, open-world data to understand semantic navigation</li>
+                        <li><strong>Per-embodiment Affordance Model:</strong> Learns robot's physical constraints safely in simulation</li>
+                    </ul>
+                </div>
+                <div class="image-content">
+                    <img src="content/images/VAMOS_system_diagram.png" alt="VAMOS system architecture showing hierarchical design with VLM planner and affordance model" class="system-diagram">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Cross-Embodiment Transfer -->
+    <section id="cross-embodiment" class="content-section bg-light">
+        <div class="container">
+            <h2>Cross-Embodiment Transfer</h2>
+            <div class="two-column">
+                <div class="image-content">
+                    <img src="content/images/placeholder.jpeg" alt="Boston Dynamics Spot robot navigating stairs while wheeled robot takes ramp" class="feature-image">
+                </div>
+                <div class="text-content">
+                    <p>The same high-level planner works across different robot embodiments by simply swapping lightweight, specialized affordance models.</p>
+                    <p>In our experiments, we demonstrate successful navigation on both:</p>
+                    <ul>
+                        <li><strong>Boston Dynamics Spot (Legged):</strong> Can traverse stairs, ramps, and complex terrain</li>
+                        <li><strong>UW Hound Robot (Wheeled):</strong> Limited to ramps and flat surfaces</li>
+                    </ul>
+                    <p>The affordance model automatically selects appropriate paths based on each robot's capabilities, enabling the same planner to achieve high performance across both platforms.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Natural Language Steerability -->
+    <section id="steerability" class="content-section">
+        <div class="container">
+            <h2>Natural Language Steerability</h2>
+            <div class="steerability-demo">
+                <div class="text-content">
+                    <p>VAMOS enables intuitive control through natural language commands, allowing users to specify navigation preferences without complex programming.</p>
+                </div>
+                <div class="demo-grid">
+                    <div class="demo-item">
+                        <img src="content/images/placeholder.jpeg" alt="Robot following 'take the ramp' command" class="demo-image">
+                        <p class="demo-caption"><em>"Take the ramp"</em></p>
+                    </div>
+                    <div class="demo-item">
+                        <img src="content/images/placeholder.jpeg" alt="Robot following 'head left' command" class="demo-image">
+                        <p class="demo-caption"><em>"Head left"</em></p>
+                    </div>
+                    <div class="demo-item">
+                        <img src="content/images/placeholder.jpeg" alt="Robot following 'cross planter' command" class="demo-image">
+                        <p class="demo-caption"><em>"Cross planter"</em></p>
+                    </div>
+                    <div class="demo-item">
+                        <img src="content/images/placeholder.jpeg" alt="Robot following 'take the stairs' command" class="demo-image">
+                        <p class="demo-caption"><em>"Take the stairs"</em></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Experimental Results -->
+    <section id="results" class="content-section bg-light">
+        <div class="container">
+            <h2>Experimental Results</h2>
+            <div class="results-content">
+                <p>VAMOS achieves state-of-the-art performance across diverse indoor and outdoor navigation tasks, significantly outperforming both modular stacks and end-to-end learning methods.</p>
+                
+                <div class="results-grid">
+                    <div class="result-item">
+                        <h3>Overall Success Rate</h3>
+                        <div class="metric">90%</div>
+                        <p>Average across all test environments</p>
+                    </div>
+                    <div class="result-item">
+                        <h3>Cross-Embodiment</h3>
+                        <div class="metric">100%</div>
+                        <p>Success on Spot robot</p>
+                    </div>
+                    <div class="result-item">
+                        <h3>Cross-Embodiment</h3>
+                        <div class="metric">90%</div>
+                        <p>Success on HOUND robot</p>
+                    </div>
+                    <div class="result-item">
+                        <h3>Improvement</h3>
+                        <div class="metric">3×</div>
+                        <p>Higher success vs. no affordance modulation</p>
+                    </div>
+                </div>
+
+                <div class="environments-tested">
+                    <h3>Environments Tested</h3>
+                    <div class="env-grid">
+                        <div class="env-item">
+                            <img src="content/images/placeholder.jpeg" alt="Indoor hallway navigation test" class="env-image">
+                            <p>Hallways</p>
+                        </div>
+                        <div class="env-item">
+                            <img src="content/images/placeholder.jpeg" alt="Atrium navigation in low light" class="env-image">
+                            <p>Atrium</p>
+                        </div>
+                        <div class="env-item">
+                            <img src="content/images/placeholder.jpeg" alt="Lab environment with obstacles" class="env-image">
+                            <p>Lab</p>
+                        </div>
+                        <div class="env-item">
+                            <img src="content/images/placeholder.jpeg" alt="Campus outdoor navigation with stairs" class="env-image">
+                            <p>Campus</p>
+                        </div>
+                        <div class="env-item">
+                            <img src="content/images/placeholder.jpeg" alt="Forest navigation with vegetation" class="env-image">
+                            <p>Forest</p>
+                        </div>
+                        <div class="env-item">
+                            <img src="content/images/placeholder.jpeg" alt="Down ramp navigation test" class="env-image">
+                            <p>Down Ramp</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Method Details -->
+    <section id="method" class="content-section">
+        <div class="container">
+            <h2>Method: Hierarchical VLA Architecture</h2>
+            <div class="method-content">
+                <div class="method-overview">
+                    <p>VAMOS operationalizes the insight that navigation can be decomposed: high-level heuristics are generalizable across embodiments, while low-level traversability depends on physical capabilities.</p>
+                </div>
+                
+                <div class="method-details">
+                    <div class="method-component">
+                        <h3>High-Level VLM Planner</h3>
+                        <ul>
+                            <li>Built on PaliGemma 2 3B model</li>
+                            <li>Trained on 29.8 hours of diverse navigation data</li>
+                            <li>Predicts 2D paths in pixel space</li>
+                            <li>Enables natural language steerability</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="method-component">
+                        <h3>Affordance Model</h3>
+                        <ul>
+                            <li>Lightweight MLP trained in simulation</li>
+                            <li>Evaluates path feasibility for specific embodiment</li>
+                            <li>Maps elevation + position + heading → traversability</li>
+                            <li>Enables safe deployment across robot types</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="training-data">
+                    <h3>Training Data Sources</h3>
+                    <div class="data-sources">
+                        <div class="data-item">
+                            <img src="content/images/placeholder.jpeg" alt="SCAND dataset visualization" class="data-image">
+                            <p>SCAND Dataset</p>
+                        </div>
+                        <div class="data-item">
+                            <img src="content/images/placeholder.jpeg" alt="TartanDrive dataset visualization" class="data-image">
+                            <p>TartanDrive</p>
+                        </div>
+                        <div class="data-item">
+                            <img src="content/images/placeholder.jpeg" alt="CODa dataset visualization" class="data-image">
+                            <p>CODa</p>
+                        </div>
+                        <div class="data-item">
+                            <img src="content/images/placeholder.jpeg" alt="In-domain Spot dataset" class="data-image">
+                            <p>Spot Dataset</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Team Section -->
+    <section id="team" class="team-section bg-light">
+        <div class="container">
+            <h2>Our Team</h2>
+            <div class="team-grid">
+                <div class="team-member">
+                    <img src="content/images/placeholder.jpeg" alt="Anonymous author profile" class="team-photo">
+                    <h3>Anonymous Author 1</h3>
+                    <p>Institution Affiliation</p>
+                </div>
+                <div class="team-member">
+                    <img src="content/images/placeholder.jpeg" alt="Anonymous author profile" class="team-photo">
+                    <h3>Anonymous Author 2</h3>
+                    <p>Institution Affiliation</p>
+                </div>
+                <div class="team-member">
+                    <img src="content/images/placeholder.jpeg" alt="Anonymous author profile" class="team-photo">
+                    <h3>Anonymous Author 3</h3>
+                    <p>Institution Affiliation</p>
+                </div>
+                <div class="team-member">
+                    <img src="content/images/placeholder.jpeg" alt="Anonymous author profile" class="team-photo">
+                    <h3>Anonymous Author 4</h3>
+                    <p>Institution Affiliation</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Citation -->
+    <section id="citation" class="citation-section">
+        <div class="container">
+            <h2>Citation</h2>
+            <div class="citation-box">
+                <pre><code>@article{anonymous2024vamos,
+  title={VAMOS: A Hierarchical Vision-Language-Action Model for Capability-Modulated and Steerable Navigation},
+  author={Anonymous Authors},
+  journal={Under Review},
+  year={2024}
+}</code></pre>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>If you have any questions, please contact the authors.</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
