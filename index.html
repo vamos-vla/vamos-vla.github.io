@@ -75,8 +75,13 @@
     <section id="overview" class="content-section overview-section">
         <div class="container">
             <div class="overview-content">
-                <p>VAMOS is a hierarchical vision-language-action model that decouples semantic planning from embodiment grounding, enabling robust cross-embodiment navigation with natural language steerability.</p>
-                <p>A single high-level planner can be deployed across physically distinct wheeled and legged robots by using a embodiment specific affordance model to reject physically infeasible plans.</p>
+                <div class="overview-image">
+                    <img src="content/images/figure1.png" alt="VAMOS system architecture diagram" class="system-diagram">
+                </div>
+                <div class="overview-text">
+                    <p>VAMOS is a hierarchical vision-language-action model that decouples semantic planning from embodiment grounding, enabling robust cross-embodiment navigation with natural language steerability.</p>
+                    <p>A single high-level planner can be deployed across physically distinct wheeled and legged robots by using a embodiment specific affordance model to reject physically infeasible plans.</p>
+                </div>
             </div>
         </div>
     </section>
@@ -95,7 +100,7 @@
                     </ul>
                 </div>
                 <div class="image-content">
-                    <img src="content/images/VAMOS_system_diagram.png" alt="VAMOS system architecture showing hierarchical design with VLM planner and affordance model" class="system-diagram">
+                    <img src="content/images/VAMOS_system_diagram_remove.png" alt="VAMOS system architecture showing hierarchical design with VLM planner and affordance model" class="system-diagram">
                 </div>
             </div>
         </div>
@@ -107,7 +112,8 @@
             <h2>Cross-Embodiment Transfer</h2>
             <div class="two-column">
                 <div class="image-content">
-                    <img src="content/images/placeholder.jpeg" alt="Boston Dynamics Spot robot navigating stairs while wheeled robot takes ramp" class="feature-image">
+                    <img src="content/images/vfviz_remove.png" alt="Boston Dynamics Spot robot navigating stairs while wheeled robot takes ramp" class="feature-image">
+                    <img src="content/images/hound_ramps_remove.png" alt="Cross-embodiment navigation comparison" class="feature-image">
                 </div>
                 <div class="text-content">
                     <p>The same high-level planner works across different robot embodiments by simply swapping lightweight, specialized affordance models.</p>
@@ -129,23 +135,47 @@
             <div class="steerability-demo">
                 <div class="text-content">
                     <p>VAMOS enables intuitive control through natural language commands, allowing users to specify navigation preferences without complex programming.</p>
+                    <div class="cycling-hint">
+                        <span class="hint-icon">🔄</span>
+                        <span class="hint-text">Click the trajectory buttons to cycle through different path options</span>
+                    </div>
                 </div>
                 <div class="demo-grid">
-                    <div class="demo-item">
-                        <img src="content/images/placeholder.jpeg" alt="Robot following 'take the ramp' command" class="demo-image">
-                        <p class="demo-caption"><em>"Take the ramp"</em></p>
+                    <div class="demo-item" data-scenario="ramp">
+                        <img src="content/images/trajectory_visualizations_all/ramp_trajectories.png" alt="Robot following 'take the ramp' command" class="demo-image" data-all="content/images/trajectory_visualizations_all/ramp_trajectories.png" data-original="content/images/trajectory_visualizations_original/ramp_trajectories.png" data-left="content/images/trajectory_visualizations_left/ramp_trajectories.png" data-right="content/images/trajectory_visualizations_right/ramp_trajectories.png">
+                        <p class="demo-caption"><em>All paths</em></p>
+                        <div class="trajectory-controls">
+                            <div class="trajectory-cycle-button" data-current="all" title="Click to cycle through trajectory options: All → Original → Left → Right">
+                                <span class="cycle-indicator">↻</span>
+                            </div>
+                        </div>
                     </div>
-                    <div class="demo-item">
-                        <img src="content/images/placeholder.jpeg" alt="Robot following 'head left' command" class="demo-image">
-                        <p class="demo-caption"><em>"Head left"</em></p>
+                    <div class="demo-item" data-scenario="tree">
+                        <img src="content/images/trajectory_visualizations_all/tree_trajectories.png" alt="Robot navigating around tree" class="demo-image" data-all="content/images/trajectory_visualizations_all/tree_trajectories.png" data-original="content/images/trajectory_visualizations_original/tree_trajectories.png" data-left="content/images/trajectory_visualizations_left/tree_trajectories.png" data-right="content/images/trajectory_visualizations_right/tree_trajectories.png">
+                        <p class="demo-caption"><em>All paths</em></p>
+                        <div class="trajectory-controls">
+                            <div class="trajectory-cycle-button" data-current="all" title="Click to cycle through trajectory options: All → Original → Left → Right">
+                                <span class="cycle-indicator">↻</span>
+                            </div>
+                        </div>
                     </div>
-                    <div class="demo-item">
-                        <img src="content/images/placeholder.jpeg" alt="Robot following 'cross planter' command" class="demo-image">
-                        <p class="demo-caption"><em>"Cross planter"</em></p>
+                    <div class="demo-item" data-scenario="grass">
+                        <img src="content/images/trajectory_visualizations_all/grass_trajectories.png" alt="Robot crossing grass area" class="demo-image" data-all="content/images/trajectory_visualizations_all/grass_trajectories.png" data-original="content/images/trajectory_visualizations_original/grass_trajectories.png" data-modified="content/images/trajectory_visualizations_left/grass_trajectories.png">
+                        <p class="demo-caption"><em>All paths</em></p>
+                        <div class="trajectory-controls">
+                            <div class="trajectory-cycle-button" data-current="all" title="Click to cycle through trajectory options: All → Original → Left → Right">
+                                <span class="cycle-indicator">↻</span>
+                            </div>
+                        </div>
                     </div>
-                    <div class="demo-item">
-                        <img src="content/images/placeholder.jpeg" alt="Robot following 'take the stairs' command" class="demo-image">
-                        <p class="demo-caption"><em>"Take the stairs"</em></p>
+                    <div class="demo-item" data-scenario="u_pole">
+                        <img src="content/images/trajectory_visualizations_all/u_pole_trajectories.png" alt="Robot navigating around U-pole obstacle" class="demo-image" data-all="content/images/trajectory_visualizations_all/u_pole_trajectories.png" data-original="content/images/trajectory_visualizations_original/u_pole_trajectories.png" data-modified="content/images/trajectory_visualizations_left/u_pole_trajectories.png">
+                        <p class="demo-caption"><em>All paths</em></p>
+                        <div class="trajectory-controls">
+                            <div class="trajectory-cycle-button" data-current="all" title="Click to cycle through trajectory options: All → Original → Left → Right">
+                                <span class="cycle-indicator">↻</span>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -186,27 +216,27 @@
                     <h3>Environments Tested</h3>
                     <div class="env-grid">
                         <div class="env-item">
-                            <img src="content/images/placeholder.jpeg" alt="Indoor hallway navigation test" class="env-image">
+                            <img src="content/images/hallway.png" alt="Indoor hallway navigation test" class="env-image">
                             <p>Hallways</p>
                         </div>
                         <div class="env-item">
-                            <img src="content/images/placeholder.jpeg" alt="Atrium navigation in low light" class="env-image">
+                            <img src="content/images/atrium.png" alt="Atrium navigation in low light" class="env-image">
                             <p>Atrium</p>
                         </div>
                         <div class="env-item">
-                            <img src="content/images/placeholder.jpeg" alt="Lab environment with obstacles" class="env-image">
+                            <img src="content/images/lab.png" alt="Lab environment with obstacles" class="env-image">
                             <p>Lab</p>
                         </div>
                         <div class="env-item">
-                            <img src="content/images/placeholder.jpeg" alt="Campus outdoor navigation with stairs" class="env-image">
+                            <img src="content/images/campus.png" alt="Campus outdoor navigation with stairs" class="env-image">
                             <p>Campus</p>
                         </div>
                         <div class="env-item">
-                            <img src="content/images/placeholder.jpeg" alt="Forest navigation with vegetation" class="env-image">
+                            <img src="content/images/forest.png" alt="Forest navigation with vegetation" class="env-image">
                             <p>Forest</p>
                         </div>
                         <div class="env-item">
-                            <img src="content/images/placeholder.jpeg" alt="Down ramp navigation test" class="env-image">
+                            <img src="content/images/downramp.png" alt="Down ramp navigation test" class="env-image">
                             <p>Down Ramp</p>
                         </div>
                     </div>
@@ -250,19 +280,19 @@
                     <h3>Training Data Sources</h3>
                     <div class="data-sources">
                         <div class="data-item">
-                            <img src="content/images/placeholder.jpeg" alt="SCAND dataset visualization" class="data-image">
+                            <img src="content/images/Scand.png" alt="SCAND dataset visualization" class="data-image">
                             <p>SCAND Dataset</p>
                         </div>
                         <div class="data-item">
-                            <img src="content/images/placeholder.jpeg" alt="TartanDrive dataset visualization" class="data-image">
+                            <img src="content/images/TartanDrive.png" alt="TartanDrive dataset visualization" class="data-image">
                             <p>TartanDrive</p>
                         </div>
                         <div class="data-item">
-                            <img src="content/images/placeholder.jpeg" alt="CODa dataset visualization" class="data-image">
+                            <img src="content/images/Coda.png" alt="CODa dataset visualization" class="data-image">
                             <p>CODa</p>
                         </div>
                         <div class="data-item">
-                            <img src="content/images/placeholder.jpeg" alt="In-domain Spot dataset" class="data-image">
+                            <img src="content/images/Spot.png" alt="In-domain Spot dataset" class="data-image">
                             <p>Spot Dataset</p>
                         </div>
                     </div>
@@ -322,6 +352,7 @@
         </div>
     </footer>
 
+    <script src="trajectory-commands.js"></script>
     <script src="script.js"></script>
 </body>
 </html>

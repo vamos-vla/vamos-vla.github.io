@@ -324,6 +324,167 @@ document.addEventListener('DOMContentLoaded', function() {
 
     improveAccessibility();
 
+    // Trajectory type cycling functionality
+    const initializeTrajectoryControls = () => {
+        const trajectoryButtons = document.querySelectorAll('.trajectory-cycle-button');
+        
+        // Define different cycling orders for different scenarios
+        const getTrajectoryOrder = (scenario) => {
+            if (scenario === 'grass' || scenario === 'u_pole') {
+                return ['all', 'original', 'modified'];
+            }
+            return ['all', 'original', 'left', 'right'];
+        };
+        
+        trajectoryButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                const demoItem = this.closest('.demo-item');
+                const currentType = this.getAttribute('data-current');
+                const scenario = demoItem.getAttribute('data-scenario');
+                
+                // Get scenario-specific trajectory order
+                const trajectoryOrder = getTrajectoryOrder(scenario);
+                
+                // Find current index and get next type
+                const currentIndex = trajectoryOrder.indexOf(currentType);
+                const nextIndex = (currentIndex + 1) % trajectoryOrder.length;
+                const nextType = trajectoryOrder[nextIndex];
+                
+                // Update button data
+                this.setAttribute('data-current', nextType);
+                
+                // Update demo caption based on trajectory type using configuration
+                const demoCaption = demoItem.querySelector('.demo-caption');
+                
+                if (demoCaption && scenario && typeof TRAJECTORY_COMMANDS !== 'undefined') {
+                    const scenarioCommands = TRAJECTORY_COMMANDS[scenario];
+                    if (scenarioCommands && scenarioCommands[nextType]) {
+                        demoCaption.innerHTML = `<em>${scenarioCommands[nextType]}</em>`;
+                    }
+                }
+                
+                // Add cycling animation
+                this.style.transform = 'scale(0.9)';
+                const cycleIcon = this.querySelector('.cycle-indicator');
+                if (cycleIcon) {
+                    cycleIcon.style.transform = 'rotate(360deg)';
+                    cycleIcon.style.transition = 'transform 0.6s ease';
+                }
+                setTimeout(() => {
+                    this.style.transform = 'scale(1)';
+                    if (cycleIcon) {
+                        cycleIcon.style.transform = 'rotate(0deg)';
+                    }
+                }, 150);
+                
+                // Update demo image based on trajectory type
+                const demoImage = demoItem.querySelector('.demo-image');
+                if (demoImage) {
+                    // Get the new image source from data attributes
+                    const newImageSrc = demoImage.getAttribute(`data-${nextType}`);
+                    
+                    if (newImageSrc) {
+                        // Add loading state
+                        demoImage.classList.add('loading');
+                        
+                        // Create a new image to preload
+                        const newImg = new Image();
+                        newImg.onload = function() {
+                            // Image loaded successfully, update the source
+                            demoImage.src = newImageSrc;
+                            demoImage.classList.remove('loading', 'error');
+                            
+                            // Add visual feedback
+                            demoImage.style.filter = 'brightness(1.1)';
+                            setTimeout(() => {
+                                demoImage.style.filter = 'brightness(1)';
+                            }, 300);
+                        };
+                        
+                        newImg.onerror = function() {
+                            // Image failed to load, show fallback
+                            console.warn(`Failed to load image: ${newImageSrc}`);
+                            demoImage.classList.remove('loading');
+                            demoImage.classList.add('error');
+                            
+                            // Show a subtle indicator that image is not available
+                            demoImage.title = `Trajectory image not available for ${nextType}`;
+                        };
+                        
+                        // Start loading the new image
+                        newImg.src = newImageSrc;
+                    } else {
+                        // No data attribute for this trajectory type, show fallback
+                        console.warn(`No image data found for trajectory type: ${nextType}`);
+                        demoImage.classList.add('error');
+                        demoImage.title = `No ${nextType} trajectory image available`;
+                    }
+                }
+                
+                // Add trajectory type indicator to demo item
+                let indicator = demoItem.querySelector('.trajectory-indicator');
+                if (!indicator) {
+                    indicator = document.createElement('div');
+                    indicator.className = 'trajectory-indicator';
+                    indicator.style.cssText = `
+                        position: absolute;
+                        top: 10px;
+                        right: 10px;
+                        padding: 0.3rem 0.6rem;
+                        border-radius: 12px;
+                        font-size: 0.8rem;
+                        font-weight: 500;
+                        color: white;
+                        text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+                        z-index: 10;
+                        transition: all 0.3s ease;
+                    `;
+                    demoItem.style.position = 'relative';
+                    demoItem.appendChild(indicator);
+                }
+                
+                // Update indicator with trajectory type and color
+                indicator.textContent = nextType.charAt(0).toUpperCase() + nextType.slice(1);
+                
+                // Set indicator color to match website theme
+                indicator.style.backgroundColor = 'rgba(102, 126, 234, 0.8)';
+                
+                // Add animation effect
+                indicator.style.transform = 'scale(1.2)';
+                setTimeout(() => {
+                    indicator.style.transform = 'scale(1)';
+                }, 200);
+                
+                
+                // Log trajectory change for debugging
+                console.log(`Trajectory cycled to: ${nextType}`);
+            });
+        });
+    };
+
+    // Initialize trajectory controls
+    initializeTrajectoryControls();
+
+    // Preload trajectory images for better performance
+    const preloadTrajectoryImages = () => {
+        const demoImages = document.querySelectorAll('.demo-image');
+        const trajectoryTypes = ['all', 'original', 'left', 'right', 'modified'];
+        
+        demoImages.forEach(img => {
+            trajectoryTypes.forEach(type => {
+                const imageSrc = img.getAttribute(`data-${type}`);
+                if (imageSrc && imageSrc !== img.src) {
+                    const preloadImg = new Image();
+                    preloadImg.src = imageSrc;
+                    // Silent preload - no error handling needed here
+                }
+            });
+        });
+    };
+
+    // Preload images after a short delay to not block initial page load
+    setTimeout(preloadTrajectoryImages, 1000);
+
     // Console message for developers
     console.log(`
     🤖 VAMOS Website Loaded Successfully!
@@ -337,6 +498,7 @@ document.addEventListener('DOMContentLoaded', function() {
     - Scroll progress indicator
     - Accessibility improvements
     - Mobile responsive design
+    - Interactive trajectory type switching
     
     Built with modern web standards and best practices.
     `);
