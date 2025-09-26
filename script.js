@@ -655,6 +655,97 @@ document.addEventListener('DOMContentLoaded', function() {
     // Initialize results interactivity
     initializeResultsInteractivity();
 
+    // Initialize popup modal functionality
+    const initializeModal = () => {
+        const modal = document.getElementById('featureModal');
+        const modalTitle = document.getElementById('modalTitle');
+        const modalMessage = document.getElementById('modalMessage');
+        const closeModalBtn = document.getElementById('closeModal');
+        const modalOkBtn = document.getElementById('modalOkBtn');
+        
+        // Get the Video and Code buttons
+        const actionButtons = document.querySelectorAll('.action-buttons .btn');
+        
+        // Function to show modal with specific content
+        const showModal = (title, message) => {
+            modalTitle.textContent = title;
+            modalMessage.textContent = message;
+            modal.classList.add('show');
+            
+            // Prevent body scroll when modal is open
+            document.body.style.overflow = 'hidden';
+        };
+        
+        // Function to hide modal
+        const hideModal = () => {
+            modal.classList.remove('show');
+            
+            // Restore body scroll
+            document.body.style.overflow = '';
+        };
+        
+        // Add click events to action buttons
+        actionButtons.forEach(button => {
+            const buttonText = button.textContent.trim();
+            
+            // Add popup to arXiv, Video, and Code buttons
+            if (buttonText === 'arXiv' || buttonText === 'Video' || buttonText === 'Code') {
+                button.addEventListener('click', function(e) {
+                    e.preventDefault(); // Prevent default link behavior
+                    
+                    let title, message;
+                    if (buttonText === 'arXiv') {
+                        title = 'arXiv Coming Soon';
+                        message = 'arXiv is still in progress';
+                    } else if (buttonText === 'Video') {
+                        title = 'Video Coming Soon';
+                        message = 'Video is still in progress';
+                    } else if (buttonText === 'Code') {
+                        title = 'Code Coming Soon';
+                        message = 'Code is still in progress';
+                    }
+                    
+                    showModal(title, message);
+                    
+                    // Add button feedback effect
+                    this.style.transform = 'scale(0.95)';
+                    setTimeout(() => {
+                        this.style.transform = '';
+                    }, 150);
+                });
+            }
+        });
+        
+        // Close modal when clicking the X button
+        if (closeModalBtn) {
+            closeModalBtn.addEventListener('click', hideModal);
+        }
+        
+        // Close modal when clicking the OK button
+        if (modalOkBtn) {
+            modalOkBtn.addEventListener('click', hideModal);
+        }
+        
+        // Close modal when clicking outside the modal content
+        modal.addEventListener('click', function(e) {
+            if (e.target === modal) {
+                hideModal();
+            }
+        });
+        
+        // Close modal with Escape key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape' && modal.classList.contains('show')) {
+                hideModal();
+            }
+        });
+        
+        console.log('Modal functionality initialized for arXiv, Video, and Code buttons');
+    };
+
+    // Initialize modal functionality
+    initializeModal();
+
     // Console message for developers
     console.log(`
     🤖 VAMOS Website Loaded Successfully!
@@ -669,6 +760,7 @@ document.addEventListener('DOMContentLoaded', function() {
     - Accessibility improvements
     - Mobile responsive design
     - Interactive trajectory type switching
+    - Video/Code button popups
     
     Built with modern web standards and best practices.
     `);
