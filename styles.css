@@ -543,30 +543,8 @@ li {
     text-align: center;
 }
 
-.results-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 2rem;
-    margin: 3rem 0;
-}
-
-.result-item {
-    background: white;
-    padding: 2rem;
-    border-radius: 12px;
-    box-shadow: 0 4px 16px rgba(0,0,0,0.1);
-    text-align: center;
-}
-
-.metric {
-    font-size: 3rem;
-    font-weight: 700;
-    color: #667eea;
-    margin: 1rem 0;
-}
-
 .environments-tested {
-    margin-top: 3rem;
+    margin-bottom: 1rem;
 }
 
 .env-grid {
@@ -578,6 +556,27 @@ li {
 
 .env-item {
     text-align: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    padding: 1rem;
+    border-radius: 12px;
+    border: 2px solid transparent;
+}
+
+.env-item:hover {
+    transform: translateY(-5px);
+    border-color: rgba(102, 126, 234, 0.3);
+    background-color: rgba(102, 126, 234, 0.05);
+}
+
+.env-item.selected {
+    border-color: #667eea;
+    background-color: rgba(102, 126, 234, 0.1);
+    transform: translateY(-3px);
+}
+
+.env-item.selected .env-image {
+    box-shadow: 0 8px 24px rgba(102, 126, 234, 0.3);
 }
 
 .env-image {
@@ -587,6 +586,182 @@ li {
     border-radius: 8px;
     box-shadow: 0 4px 16px rgba(0,0,0,0.1);
     margin-bottom: 0.5rem;
+    transition: all 0.3s ease;
+}
+
+.env-controls {
+    margin-top: 2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+}
+
+.reset-env-btn {
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    color: white;
+    border: none;
+    padding: 0.75rem 2rem;
+    border-radius: 25px;
+    font-size: 1rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 16px rgba(102, 126, 234, 0.3);
+}
+
+.reset-env-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+}
+
+.reset-env-btn:active {
+    transform: translateY(0);
+}
+
+.env-instruction {
+    font-style: italic;
+    color: #666;
+    font-size: 1rem;
+    margin: 0;
+}
+
+.performance-comparison {
+    margin-top: 1rem;
+}
+
+.method-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 1rem;
+    margin: 2rem 0;
+}
+
+.method-item {
+    background: white;
+    padding: 1rem;
+    border-radius: 12px;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+    text-align: center;
+    transition: all 0.3s ease;
+    border: 2px solid transparent;
+}
+
+.method-item:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+}
+
+.method-item.vamos-method {
+    border-color: #667eea;
+    background: linear-gradient(135deg, rgba(102, 126, 234, 0.05), rgba(118, 75, 162, 0.05));
+}
+
+.method-item h4 {
+    margin-bottom: 1rem;
+    color: #333;
+    font-size: 1.2rem;
+}
+
+.method-item.vamos-method h4 {
+    color: #667eea;
+    font-weight: 600;
+}
+
+.method-metrics {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.metric-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.5rem;
+    background: rgba(0,0,0,0.02);
+    border-radius: 6px;
+}
+
+.metric-label {
+    font-size: 0.9rem;
+    color: #666;
+    font-weight: 500;
+}
+
+.metric-value {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #333;
+    transition: all 0.3s ease;
+}
+
+.vamos-method .metric-value {
+    color: #667eea;
+}
+
+.current-env-display {
+    margin-top: 1.5rem;
+    padding: 1rem;
+    background: rgba(102, 126, 234, 0.1);
+    border-radius: 8px;
+    border: 1px solid rgba(102, 126, 234, 0.2);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+.current-env-display span {
+    font-weight: 500;
+    color: #667eea;
+    font-size: 1rem;
+    flex: 1;
+}
+
+.inline-reset-btn {
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 6px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 8px rgba(102, 126, 234, 0.2);
+    white-space: nowrap;
+}
+
+.inline-reset-btn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+}
+
+.inline-reset-btn:active {
+    transform: translateY(0);
+}
+
+/* Metric value animations */
+.metric-value.updating {
+    transform: scale(1.1);
+    color: #667eea;
+}
+
+.metric-value.updated {
+    animation: metricUpdate 0.5s ease;
+}
+
+@keyframes metricUpdate {
+    0% {
+        transform: scale(1.1);
+        background-color: rgba(102, 126, 234, 0.2);
+    }
+    100% {
+        transform: scale(1);
+        background-color: transparent;
+    }
 }
 
 /* Method Section */

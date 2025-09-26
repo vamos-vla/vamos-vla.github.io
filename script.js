@@ -485,6 +485,176 @@ document.addEventListener('DOMContentLoaded', function() {
     // Preload images after a short delay to not block initial page load
     setTimeout(preloadTrajectoryImages, 1000);
 
+    // Environment names mapping
+    const environmentNames = {
+        overall: 'Showing results across all environments',
+        hallway: 'Hallways Environment',
+        atrium: 'Atrium Environment', 
+        lab: 'Lab Environment',
+        campus: 'Campus Environment',
+        forest: 'Forest Environment',
+        downramp: 'Down Ramp Environment'
+    };
+
+    // Initialize interactive results functionality
+    const initializeResultsInteractivity = () => {
+        const envItems = document.querySelectorAll('.env-item');
+        const resetBtn = document.getElementById('resetEnvironment');
+        const currentEnvDisplay = document.getElementById('currentEnvironment');
+        let selectedEnvironment = 'overall';
+
+        // Function to update performance metrics
+        const updatePerformanceMetrics = (environment) => {
+            const data = PERFORMANCE_DATA[environment];
+            if (!data) return;
+
+            // Update each method's metrics with animation
+            Object.keys(data).forEach(method => {
+                const methodItem = document.querySelector(`[data-method="${method}"]`);
+                if (methodItem) {
+                    const metrics = data[method];
+                    
+                    // Update Success Rate
+                    const srElement = methodItem.querySelector('[data-metric="sr"]');
+                    if (srElement) {
+                        srElement.classList.add('updating');
+                        setTimeout(() => {
+                            srElement.textContent = metrics.sr === '-' ? '-' : `${metrics.sr}%`;
+                            srElement.classList.remove('updating');
+                            srElement.classList.add('updated');
+                            setTimeout(() => srElement.classList.remove('updated'), 500);
+                        }, 150);
+                    }
+
+                    // Update Number of Interventions
+                    const niElement = methodItem.querySelector('[data-metric="ni"]');
+                    if (niElement) {
+                        niElement.classList.add('updating');
+                        setTimeout(() => {
+                            niElement.textContent = metrics.ni === '-' ? '-' : metrics.ni.toString();
+                            niElement.classList.remove('updating');
+                            niElement.classList.add('updated');
+                            setTimeout(() => niElement.classList.remove('updated'), 500);
+                        }, 200);
+                    }
+
+                    // Update Time
+                    const timeElement = methodItem.querySelector('[data-metric="time"]');
+                    if (timeElement) {
+                        timeElement.classList.add('updating');
+                        setTimeout(() => {
+                            timeElement.textContent = metrics.time;
+                            timeElement.classList.remove('updating');
+                            timeElement.classList.add('updated');
+                            setTimeout(() => timeElement.classList.remove('updated'), 500);
+                        }, 250);
+                    }
+                }
+            });
+
+            // Update current environment display
+            if (currentEnvDisplay) {
+                currentEnvDisplay.textContent = environmentNames[environment] || 'Unknown environment';
+            }
+        };
+
+        // Environment click handlers
+        envItems.forEach(envItem => {
+            envItem.addEventListener('click', function() {
+                const environment = this.getAttribute('data-env');
+                if (!environment || environment === selectedEnvironment) return;
+
+                // Remove selected class from all environment items
+                envItems.forEach(item => item.classList.remove('selected'));
+                
+                // Add selected class to clicked item
+                this.classList.add('selected');
+                
+                // Update selected environment
+                selectedEnvironment = environment;
+                
+                // Update performance metrics
+                updatePerformanceMetrics(environment);
+                
+                // Add visual feedback
+                this.style.transform = 'translateY(-8px) scale(1.02)';
+                setTimeout(() => {
+                    this.style.transform = '';
+                }, 300);
+
+                console.log(`Environment selected: ${environment}`);
+            });
+
+            // Add hover effects
+            envItem.addEventListener('mouseenter', function() {
+                if (!this.classList.contains('selected')) {
+                    this.style.transform = 'translateY(-3px)';
+                }
+            });
+
+            envItem.addEventListener('mouseleave', function() {
+                if (!this.classList.contains('selected')) {
+                    this.style.transform = '';
+                }
+            });
+        });
+
+        // Reset button handler
+        if (resetBtn) {
+            resetBtn.addEventListener('click', function() {
+                // Remove selected class from all environment items
+                envItems.forEach(item => {
+                    item.classList.remove('selected');
+                    item.style.transform = '';
+                });
+                
+                // Reset to overall results
+                selectedEnvironment = 'overall';
+                updatePerformanceMetrics('overall');
+                
+                // Add button feedback
+                this.style.transform = 'scale(0.95)';
+                setTimeout(() => {
+                    this.style.transform = '';
+                }, 150);
+
+                console.log('Results reset to overall performance');
+            });
+        }
+
+        // Inline reset button handler
+        const inlineResetBtn = document.getElementById('inlineResetEnvironment');
+        if (inlineResetBtn) {
+            inlineResetBtn.addEventListener('click', function() {
+                // Remove selected class from all environment items
+                envItems.forEach(item => {
+                    item.classList.remove('selected');
+                    item.style.transform = '';
+                });
+                
+                // Reset to overall results
+                selectedEnvironment = 'overall';
+                updatePerformanceMetrics('overall');
+                
+                // Add button feedback
+                this.style.transform = 'scale(0.95)';
+                setTimeout(() => {
+                    this.style.transform = '';
+                }, 150);
+
+                console.log('Results reset to overall performance (inline button)');
+            });
+        }
+
+        // Initialize with overall results
+        updatePerformanceMetrics('overall');
+        
+        console.log('Interactive results functionality initialized');
+    };
+
+    // Initialize results interactivity
+    initializeResultsInteractivity();
+
     // Console message for developers
     console.log(`
     🤖 VAMOS Website Loaded Successfully!
