@@ -6,6 +6,10 @@
     <title>VAMOS: A Hierarchical Vision-Language-Action Model for Capability-Modulated and Steerable Navigation</title>
     <link rel="stylesheet" href="styles.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script
+			type="module"
+			src="https://gradio.s3-us-west-2.amazonaws.com/3.12.0/gradio.js"
+		></script>
 </head>
 <body>
     <!-- Hero Section with Video Background -->
@@ -63,6 +67,7 @@
                 <a href="#hierarchical" class="section-nav-btn">Hierarchical Navigation</a>
                 <a href="#cross-embodiment" class="section-nav-btn">Cross-Embodiment</a>
                 <a href="#steerability" class="section-nav-btn">Language Steerability</a>
+                <a href="#gradio-demo" class="section-nav-btn">Gradio Demo</a>
                 <a href="#results" class="section-nav-btn">Results</a>
                 <a href="#method" class="section-nav-btn">Method</a>
                 <a href="#team" class="section-nav-btn">Team</a>
@@ -179,6 +184,16 @@
                         </div>
                     </div>
                 </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Gradio Demo Section -->
+    <section id="gradio-demo" class="content-section gradio-section">
+        <div class="container">
+            <h2>Gradio Demo</h2>
+            <div class="gradio-container">
+                <gradio-app src="https://mateoguaman-vamos.hf.space"></gradio-app>
             </div>
         </div>
     </section>

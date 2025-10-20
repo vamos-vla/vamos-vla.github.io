@@ -538,6 +538,19 @@ li {
     text-shadow: 1px 1px 4px rgba(0,0,0,0.6);
 }
 
+/* Gradio Section */
+.gradio-section {
+    padding: 4rem 0;
+    text-align: center;
+}
+.gradio-container {
+    max-width: 1000px;
+    margin: 0 auto;
+    border-radius: 12px;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+    overflow: hidden;
+}
+
 /* Results Section */
 .results-content {
     text-align: center;
