@@ -398,7 +398,7 @@
                         </div>
                         <div class="additional-video">
                             <h3 class="additional-video-header">Detailed Baseline Comparison</h3>
-                            <video controls autoplay muted playsinline preload="metadata" class="video-large" aria-label="Forest experiment video">
+                            <video id="baselineVideo" controls autoplay muted playsinline preload="metadata" class="video-large" aria-label="Forest experiment video">
                                 <source src="content/videos/vamos_forest_experiment.mp4" type="video/mp4">
                                 Your browser does not support the video tag.
                             </video>
@@ -576,31 +576,33 @@
     <script src="performance_data.js"></script>
     <script src="script.js"></script>
     <script>
-        // Play/pause teaser and results videos when they enter/leave the viewport.
-        // Also pause other large videos when the results reel is playing to avoid simultaneous playback.
+        // Play/pause teaser, results, and other large videos when they enter/leave the viewport.
+        // Observe all `.video-large` elements (including the Detailed Baseline Comparison clip)
+        // and mute them programmatically to maximize autoplay reliability across browsers.
         document.addEventListener('DOMContentLoaded', function () {
             if (typeof IntersectionObserver === 'undefined') return;
 
             const teaser = document.getElementById('teaserVideo');
             const results = document.getElementById('resultsVideo');
+            const baseline = document.getElementById('baselineVideo');
 
             // Make sure autoplay is allowed by muting these programmatically (if present in markup it's fine too)
-            if (teaser) teaser.muted = true;
-            if (results) results.muted = true;
+            [teaser, results, baseline].forEach(v => { if (v) v.muted = true; });
 
-            // Collect other large, autoplay-capable videos so we can pause them when results plays
-            const otherLargeVideos = Array.from(document.querySelectorAll('.video-large'))
-                .filter(el => el !== results);
+            // Collect all large, autoplay-capable videos so we can manage playback when needed
+            const allLargeVideos = Array.from(document.querySelectorAll('.video-large'));
+            const otherLargeVideos = allLargeVideos.filter(el => el !== results);
 
             const handleVisibility = (entry) => {
                 const vid = entry.target;
                 if (entry.isIntersecting && entry.intersectionRatio >= 0.5) {
                     vid.play().catch(() => {});
 
-                    // If the results video started playing, pause other large videos to avoid multiple playbacks
+                    // If the results video started playing, pause other large videos that are actively playing
+                    // to avoid multiple concurrent playbacks.
                     if (vid.id === 'resultsVideo') {
                         otherLargeVideos.forEach(o => {
-                            try { o.pause(); } catch (e) { /* ignore */ }
+                            try { if (!o.paused) o.pause(); } catch (e) { /* ignore */ }
                         });
                     }
                 } else {
@@ -612,8 +614,14 @@
                 entries.forEach(handleVisibility);
             }, { threshold: [0.5] });
 
+            // Observe teaser and results explicitly (if present)
             if (teaser) observer.observe(teaser);
             if (results) observer.observe(results);
+
+            // Also observe every `.video-large` element (this includes the baseline clip)
+            allLargeVideos.forEach(v => {
+                if (v && v !== teaser && v !== results) observer.observe(v);
+            });
         });
     </script>
 </body>
