@@ -80,7 +80,8 @@ document.addEventListener('DOMContentLoaded', function() {
         // Pause other videos when one starts playing
         video.addEventListener('play', function() {
             videos.forEach(otherVideo => {
-                if (otherVideo !== this && !otherVideo.paused) {
+                // Don't pause the hero/background video (keep it looping)
+                if (otherVideo !== this && !otherVideo.paused && !otherVideo.classList.contains('hero-bg-video')) {
                     otherVideo.pause();
                 }
             });
@@ -684,29 +685,34 @@ document.addEventListener('DOMContentLoaded', function() {
             document.body.style.overflow = '';
         };
         
-        // Add click events to action buttons
+        // Add click events to action buttons — only attach the "coming soon" modal
+        // to placeholder links (href="#" / empty). External or real links
+        // will be left to behave normally.
         actionButtons.forEach(button => {
             const buttonText = button.textContent.trim();
-            
-            // Add popup to arXiv, Video, and Code buttons
-            if (buttonText === 'arXiv' || buttonText === 'Video' || buttonText === 'Code') {
+            const href = button.getAttribute('href');
+            const isPlaceholderLink = !href || href === '#' || href.toLowerCase().startsWith('javascript:');
+
+            if (isPlaceholderLink) {
                 button.addEventListener('click', function(e) {
-                    e.preventDefault(); // Prevent default link behavior
-                    
-                    let title, message;
-                    if (buttonText === 'arXiv') {
+                    e.preventDefault(); // Prevent default link behavior for placeholders
+
+                    let title = 'Coming Soon';
+                    let message = 'This feature is still in progress';
+
+                    if (/arxiv/i.test(buttonText)) {
                         title = 'arXiv Coming Soon';
                         message = 'arXiv is still in progress';
-                    } else if (buttonText === 'Video') {
+                    } else if (/video/i.test(buttonText)) {
                         title = 'Video Coming Soon';
                         message = 'Video is still in progress';
-                    } else if (buttonText === 'Code') {
+                    } else if (/code/i.test(buttonText)) {
                         title = 'Code Coming Soon';
                         message = 'Code is still in progress';
                     }
-                    
+
                     showModal(title, message);
-                    
+
                     // Add button feedback effect
                     this.style.transform = 'scale(0.95)';
                     setTimeout(() => {

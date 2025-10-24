@@ -663,6 +663,53 @@ li {
     backdrop-filter: blur(6px);
 }
 
+/* Large responsive video used across the site */
+.video-large {
+    width: 100%;
+    max-width: 1200px;
+    height: auto;
+    display: block;
+    margin: 1rem auto;
+    border-radius: 12px;
+    box-shadow: 0 12px 40px rgba(0,0,0,0.25);
+    background: #000;
+    object-fit: contain;
+}
+
+/* Full-screen teaser section styles */
+.teaser-section {
+    width: 100vw;
+    height: 100vh;
+    position: relative;
+    display: block;
+    overflow: hidden;
+    background: #000;
+}
+
+.teaser-video {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 100vw;
+    height: 100vh;
+    transform: translate(-50%, -50%);
+    object-fit: cover;
+    z-index: 1;
+    display: block;
+}
+
+/* Additional video (forest experiment) styling */
+.additional-video {
+    margin-top: 2.5rem; /* larger separation from the reel */
+}
+
+.additional-video-header {
+    font-size: 1.25rem;
+    margin: 0 0 0.75rem 0;
+    color: #222;
+    font-weight: 600;
+}
+
 /* Small screen adjustments */
 @media (max-width: 768px) {
     .video-selects { flex-direction: column; align-items: stretch; }
