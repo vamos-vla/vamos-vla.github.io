@@ -61,6 +61,10 @@
                     <img src="content/images/github-icon.png" alt="GitHub icon" class="btn-icon">
                     Code (Coming Soon)
                 </a>
+                <a href="https://hf.co/collections/mateoguaman/vamos-a-hierarchical-vision-language-action-model-for-capab" class="btn btn-primary" target="_blank" rel="noopener">
+                    <span class="hf-icon">🤗</span>
+                    Hugging Face Collection
+                </a>
             </div>
 
         </div>
@@ -256,6 +260,35 @@
                     </div>
                 </div>
 
+                <!-- Video panel: plays VAMOS speedruns by default and allows switching groups -->
+                <div class="video-panel">
+                    <div class="video-panel-inner container-sm">
+                        <div class="video-header">
+                            <h3>Run Visualizations</h3>
+                            <p class="video-sub">By default: VAMOS course speedruns. Switch groups or clips below.</p>
+                        </div>
+
+                        <div class="video-selects">
+                            <label for="videoGroupSelect" class="sr-only">Video Group</label>
+                            <select id="videoGroupSelect" class="video-select">
+                                <option value="vamos">VAMOS speedruns</option>
+                                <option value="baselines">Baselines (coming soon)</option>
+                            </select>
+
+                            <label for="videoClipSelect" class="sr-only">Clip</label>
+                            <select id="videoClipSelect" class="video-select"></select>
+                        </div>
+
+                        <div class="video-player-wrapper">
+                            <video id="resultsVideo" class="video-player" controls playsinline muted autoplay>
+                                <source id="resultsVideoSource" src="content/videos/vamos_hallway_speedrun.mp4" type="video/mp4">
+                                Your browser does not support the video tag.
+                            </video>
+                            <div class="video-caption" id="resultsVideoCaption">VAMOS — Hallway</div>
+                        </div>
+                    </div>
+                </div>
+
                 <div class="performance-comparison">
                     <!-- <h3>Method Performance Comparison</h3> -->
                     <div class="current-env-display">
@@ -417,7 +450,7 @@
             <div class="team-grid">
                 <div class="team-member">
                     <img src="content/images/people/mateo.png" alt="Mateo Guaman Castro profile" class="team-photo">
-                    <h3>Mateo Guaman Castro*</h3>
+                    <h3>Mateo Guaman Castro</h3>
                     <p>University of Washington</p>
                 </div>
                 <div class="team-member">

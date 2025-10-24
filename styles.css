@@ -196,6 +196,11 @@ li {
     margin-right: 0.5rem;
 }
 
+.hf-icon {
+    font-size: 1.2rem;
+    margin-right: 0.5rem;
+}
+
 .btn-icon {
     width: 20px;
     height: 20px;
@@ -598,6 +603,71 @@ li {
 /* Results Section */
 .results-content {
     text-align: center;
+}
+
+/* Video panel styles (results) */
+.video-panel {
+    padding: 2rem 0 1rem;
+    margin-bottom: 1.5rem;
+}
+.video-panel-inner {
+    max-width: 980px;
+    margin: 0 auto;
+    text-align: left;
+}
+.video-header h3 {
+    margin: 0 0 0.25rem 0;
+    color: #222;
+}
+.video-sub {
+    margin: 0 0 1rem 0;
+    color: #555;
+    font-size: 0.95rem;
+}
+.video-selects {
+    display: flex;
+    gap: 0.75rem;
+    margin-bottom: 1rem;
+    align-items: center;
+}
+.video-select {
+    padding: 0.5rem 0.75rem;
+    border-radius: 8px;
+    border: 1px solid rgba(0,0,0,0.08);
+    background: white;
+    font-size: 0.95rem;
+}
+.video-player-wrapper {
+    position: relative;
+    background: #000;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 8px 28px rgba(0,0,0,0.2);
+}
+.video-player {
+    width: 100%;
+    height: auto;
+    max-height: 58vh;
+    display: block;
+    background: black;
+}
+.video-caption {
+    position: absolute;
+    left: 12px;
+    bottom: 12px;
+    background: rgba(0,0,0,0.5);
+    color: #fff;
+    padding: 0.35rem 0.6rem;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    backdrop-filter: blur(6px);
+}
+
+/* Small screen adjustments */
+@media (max-width: 768px) {
+    .video-selects { flex-direction: column; align-items: stretch; }
+    .video-select { width: 100%; }
+    .video-panel-inner { padding: 0 12px; }
 }
 
 .environments-tested {

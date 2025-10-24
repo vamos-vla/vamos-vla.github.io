@@ -746,6 +746,103 @@ document.addEventListener('DOMContentLoaded', function() {
     // Initialize modal functionality
     initializeModal();
 
+    // --- Results video playlist and UI ---
+    const initializeResultsVideos = () => {
+        const groups = {
+            vamos: [
+                { id: 'hallway', label: 'Hallway', src: 'content/videos/vamos_hallway_speedrun.mp4' },
+                { id: 'lab', label: 'Lab', src: 'content/videos/vamos_lab_speedrun.mp4' },
+                { id: 'campus', label: 'Campus', src: 'content/videos/vamos_campus_speedrun.mp4' },
+                { id: 'forest', label: 'Forest', src: 'content/videos/vamos_forest_speedrun.mp4' },
+                { id: 'downramp', label: 'Down Ramp', src: 'content/videos/vamos_down_ramp_speedrun.mp4' },
+                { id: 'atrium', label: 'Atrium', src: 'content/videos/vamos_atrium_speedrun.mp4' }
+            ],
+            baselines: [] // placeholder for future baseline videos
+        };
+
+        const groupSelect = document.getElementById('videoGroupSelect');
+        const clipSelect = document.getElementById('videoClipSelect');
+        const videoEl = document.getElementById('resultsVideo');
+        const videoSource = document.getElementById('resultsVideoSource');
+        const caption = document.getElementById('resultsVideoCaption');
+
+        if (!groupSelect || !clipSelect || !videoEl || !videoSource) return;
+
+        let currentGroup = 'vamos';
+        let currentIndex = 0;
+
+        const populateClipSelect = (groupKey) => {
+            clipSelect.innerHTML = '';
+            const list = groups[groupKey] || [];
+            list.forEach((clip, idx) => {
+                const opt = document.createElement('option');
+                opt.value = idx.toString();
+                opt.textContent = `${clip.label}`;
+                clipSelect.appendChild(opt);
+            });
+            // If empty, show placeholder
+            if (list.length === 0) {
+                const opt = document.createElement('option');
+                opt.value = '-1';
+                opt.textContent = 'No clips available';
+                clipSelect.appendChild(opt);
+            }
+        };
+
+        const loadClip = (groupKey, index, autoplay = true) => {
+            const list = groups[groupKey] || [];
+            if (!list || list.length === 0 || index < 0 || index >= list.length) return;
+            const clip = list[index];
+            videoSource.src = clip.src;
+            videoSource.type = 'video/mp4';
+            videoEl.load();
+            if (autoplay) videoEl.play().catch(() => {});
+            caption.textContent = `VAMOS — ${clip.label}`;
+            clipSelect.value = index.toString();
+            currentIndex = index;
+            currentGroup = groupKey;
+        };
+
+        // Advance to next clip in current group (wrap-around)
+        const nextClip = () => {
+            const list = groups[currentGroup] || [];
+            if (!list || list.length === 0) return;
+            const nextIndex = (currentIndex + 1) % list.length;
+            loadClip(currentGroup, nextIndex, true);
+        };
+
+        // Event handlers
+        groupSelect.addEventListener('change', function() {
+            const val = this.value;
+            currentGroup = val;
+            populateClipSelect(val);
+            // Load first clip automatically if available
+            loadClip(val, 0, true);
+        });
+
+        clipSelect.addEventListener('change', function() {
+            const idx = parseInt(this.value, 10);
+            if (isNaN(idx) || idx < 0) return;
+            loadClip(currentGroup, idx, true);
+        });
+
+        // When a clip ends, advance to next clip in group
+        videoEl.addEventListener('ended', function() {
+            nextClip();
+        });
+
+        // Initialize defaults
+        populateClipSelect(currentGroup);
+        loadClip(currentGroup, 0, false);
+        // Start playing after a short delay to allow preload
+        setTimeout(() => {
+            videoEl.play().catch(() => {});
+        }, 250);
+    };
+
+    // Initialize results videos UI
+    initializeResultsVideos();
+
     // Console message for developers
     console.log(`
     🤖 VAMOS Website Loaded Successfully!
