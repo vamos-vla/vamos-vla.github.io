@@ -98,7 +98,7 @@
         <div class="container">
             <div class="overview-content">
                 <div class="overview-image">
-                    <img src="content/images/figure1.png" alt="VAMOS system architecture diagram" class="system-diagram">
+                    <img src="content/images/vamos_fig1.png" alt="VAMOS system architecture diagram" class="system-diagram">
                 </div>
                 <div class="overview-text">
                     <p>VAMOS is a hierarchical vision-language-action model that decouples semantic planning from embodiment grounding, enabling robust cross-embodiment navigation with natural language steerability.</p>
@@ -127,7 +127,13 @@
     <section id="hierarchical" class="content-section bg-light">
         <div class="container">
             <h2>Hierarchical Navigation with Embodiment Grounding</h2>
-            <div class="two-column">
+            <!-- full-bleed figure placed directly under the title so it is centered beneath the heading -->
+            <div class="full-bleed">
+                <div class="full-bleed-inner">
+                    <img src="content/images/vamos_fig2.png" alt="VAMOS system architecture showing hierarchical design with VLM planner and affordance model" class="system-diagram full-width-figure">
+                </div>
+            </div>
+            <div class="hierarchical-text">
                 <div class="text-content">
                     <p>A fundamental tension in robot navigation lies in learning policies that generalize across diverse environments while conforming to the unique physical constraints of specific embodiments. Quadrupeds can walk up stairs, wheeled robots cannot.</p>
                     <p>VAMOS resolves this tension through a carefully designed hierarchical architecture that separates concerns:</p>
@@ -136,9 +142,6 @@
                         <li><strong>Per-embodiment Affordance Model:</strong> Learns robot's physical constraints safely in simulation</li>
                     </ul>
                 </div>
-                <div class="image-content">
-                    <!-- <img src="content/images/VAMOS_system_diagram_remove.png" alt="VAMOS system architecture showing hierarchical design with VLM planner and affordance model" class="system-diagram"> -->
-                    <img src="content/images/figure2.png" alt="VAMOS system architecture showing hierarchical design with VLM planner and affordance model" class="system-diagram">
                 </div>
             </div>
         </div>
@@ -150,8 +153,8 @@
             <h2>Cross-Embodiment Transfer</h2>
             <div class="two-column">
                 <div class="image-content">
-                    <img src="content/images/vfviz_remove.png" alt="Boston Dynamics Spot robot navigating stairs while wheeled robot takes ramp" class="feature-image">
-                    <img src="content/images/hound_ramps_remove.png" alt="Cross-embodiment navigation comparison" class="feature-image">
+                    <img src="content/images/affordance_comparisons.png" alt="Boston Dynamics Spot robot navigating stairs while wheeled robot takes ramp" class="feature-image">
+                    <img src="content/images/cross_embodiment.png" alt="Cross-embodiment navigation comparison" class="feature-image">
                 </div>
                 <div class="text-content">
                     <p>The same high-level planner works across different robot embodiments by simply swapping lightweight, specialized affordance models.</p>
